@@ -5,11 +5,12 @@ import {
   Text,
   View
 } from 'react-native';
+import styles from '../../styles/styles.js';
 
 export default class FeedHome extends Component<{}> {
   render() {
     return (
-      <View>
+      <View style={styles.statusBarPadding}>
         <Text>
           This is the FeedHome
         </Text>

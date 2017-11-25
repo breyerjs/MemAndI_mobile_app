@@ -11,31 +11,17 @@ import {
   Text,
   View
 } from 'react-native';
-import { Menu } from './components/menu';
+import { Menu } from './components/Menu';
+import LandingPage from './components/screens/LandingPage';
 
 export default class App extends Component<{}> {
   render() {
-    return (
-        <Menu />
-    );
+    // TODO: if not logged in, then go to landing screen; else <Menu />
+    if (true){
+      return (<LandingPage />);
+    }
+    else{
+      return(<Menu />);
+    }
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
