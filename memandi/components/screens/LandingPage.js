@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, TouchableHighlight } from 'react-native';
-import { FormLabel, FormInput } from 'react-native-elements'
+import { FormLabel, FormInput } from 'react-native-elements';
+import StorageHelper from '../../data/StorageHelper';
 import styles from '../../styles/styles.js';
 var t = require('tcomb-form-native');
 var Form = t.form.Form;
@@ -18,19 +19,32 @@ var UserCreation = t.struct({
   lastName: t.String,              // a required string
 });
 
+var placeholdersOptions = {
+  auto: 'placeholders'
+}
+
+var storageHelper = new StorageHelper();
+
 export default class LandingPage extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isLoggingIn: true
+    }
+  }
+
   render() {
-    if (! this.isLoggedIn()){
+    if (this.state.isLoggingIn){
       return (
         <View>
-          {this.showSignUpScreen()}
+          {this.showLoginScreen()}
         </View>
       );
     }
     else{
       return (
         <View>
-          {this.showLoginScreen()}
+          {this.showSignUpScreen()}
         </View>
       );
     }
@@ -42,9 +56,13 @@ export default class LandingPage extends Component {
         <Form
           ref="form"
           type={UserLogin}
+          options={placeholdersOptions}
         />
         <TouchableHighlight onPress={this.makeLoginAttempt} underlayColor='#99d9f4'>
-          <Text>Save</Text>
+          <Text>Log in</Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this.toggleLoggingUp} underlayColor='#99d9f4'>
+          <Text>Create an account</Text>
         </TouchableHighlight>
       </View>
     );
@@ -56,19 +74,24 @@ export default class LandingPage extends Component {
         <Form
           ref="form"
           type={UserCreation}
+          options={placeholdersOptions}
         />
         <TouchableHighlight onPress={this.makeLoginAttempt} underlayColor='#99d9f4'>
           <Text>Sign up</Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this.toggleLoggingUp} underlayColor='#99d9f4'>
+          <Text>Already have an account?</Text>
         </TouchableHighlight>
       </View>
     );
   }
 
-  makeLoginAttempt(){
+  makeLoginAttempt = () => {
     console.log("hai");
   }
 
-  isLoggedIn(){
-    return false;
+  toggleLoggingUp = () => {
+    this.setState({'isLoggingIn': ! this.state.isLoggingIn});
   }
+
 }

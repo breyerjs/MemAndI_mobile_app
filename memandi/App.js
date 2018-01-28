@@ -13,15 +13,21 @@ import {
 } from 'react-native';
 import { Menu } from './components/Menu';
 import LandingPage from './components/screens/LandingPage';
+import StorageHelper from './data/StorageHelper';
+
+var storageHelper = new StorageHelper();
 
 export default class App extends Component<{}> {
   render() {
-    // TODO: if not logged in, then go to landing screen; else <Menu />
-    if (true){
+     if (! this.isLoggedIn()){
       return (<LandingPage />);
     }
     else{
       return(<Menu />);
     }
+  }
+
+  isLoggedIn(){
+    return storageHelper.getAuthToken() != null;
   }
 }
